@@ -1,19 +1,25 @@
-export const getPokemon = async (query) => {
-    const url = `https://pokeapi.co/api/v2/pokemon/${query.toLowerCase()}`;
-    
-    const response = await fetch(url);
-    
-    if (!response.ok) {
-      throw new Error('Pokemon No Encontrado');
-    }
-    
-    const data = await response.json();
-    
-    return {
-      id: data.id,
-      name: data.name,
-      sprite: data.sprites.front_default,
-      types: data.types.map((type) => type.type.name),
-    };
-  };
-  
+export const getPokemon = async (poke) => {
+  try {
+      const url = `https://pokeapi.co/api/v2/pokemon/${poke.toLowerCase()}`;
+      const resp = await fetch(url);
+      
+      if (!resp.ok) {
+          throw new Error('No se encontro');
+      }
+
+      const po = await resp.json();
+      const pokemon = {
+          id: po.id,
+          name: po.name,
+          sprite: po.sprites.front_default,
+          types: po.types.map((type) => type.type.name),
+          moves: po.moves.slice(0, 3).map((move) => move.move.name),
+          weight: po.weight,
+          height: po.height,
+      }
+
+      return pokemon;
+  } catch (err) {
+      console.error(err)
+  }
+}

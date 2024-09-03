@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 export const BuscarPokemon = ({ onSearch }) => {
   const [inputValue, setInputValue] = useState('');
@@ -15,14 +15,17 @@ export const BuscarPokemon = ({ onSearch }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="d-flex mb-3">
       <input
         type="text"
+        className="form-control me-2"
         value={inputValue}
         onChange={handleInputChange}
-        placeholder="Busca tu Pokemon"
+        placeholder="Buscar Pokémon por nombre o ID"
       />
-      <button type="submit">Search</button>
+      <button type="submit" className="btn btn-primary">
+        Buscar
+      </button>
     </form>
   );
 };
